@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AngularJS Expressions Example</title>
+    <style>
+      html,
+      body {
+        height: 100vh;
+        overflow: hidden;
+        padding: 10px;
+        margin: 0;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      }
+      button {
+        padding: 8px 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        outline: none;
+        border: none;
+        background-color: rgb(142, 13, 255);
+        color: #fff;
+        font-weight: 500;
+      }
+      .greet {
+        padding: 8px 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        background: linear-gradient(60deg, rgb(0, 200, 60), rgb(255, 255, 255));
+        color: #fff;
+        font-weight: 500;
+      }
+      
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  </head>
+  <body ng-app="myApp" ng-controller="myController">
+    <h1>Welcome {{ user.name }}!</h1>
+
+    <p>Today is {{ currentDate | date: 'fullDate' }}</p>
+
+    <p>The sum of {{ num1 }} and {{ num2 }} is {{ num1 + num2 }}.</p>
+    <p>{{ num1 }} + {{ num2 }} = {{ num1 + num2 }}</p>
+
+    <button ng-click="greet()">Click to greet</button>
+
+    <p ng-show="message" class="greet">{{ message }}</p>
+
+    <script>
+      var app = angular.module("myApp", []);
+
+      app.controller("myController", function ($scope) {
+        $scope.user = {
+          name: "Hariharan",
+        };
+
+        $scope.currentDate = new Date();
+
+        $scope.num1 = 10;
+        $scope.num2 = 20;
+
+        $scope.greet = function () {
+          $scope.message = `Hello, ${$scope.user.name}!`;
+        };
+      });
+    </script>
+  </body>
+</html>
+
+<!-- Explanation -->
+
+<!-- 
+
+ In AngularJS, expressions are JavaScript-like code snippets that are usually placed in double curly braces {{ }} within the HTML template. 
+
+- The expression {{ user.name }} displays the value of user.name, which is 'Hariharan'.
+- The expression {{ currentDate | date: 'fullDate' }} formats the current date using the date filter to display the full date.
+- The expression {{ num1 + num2 }} evaluates the sum of num1 and num2, which is 30.
+- The ng-click directive triggers the greet() function when the button is clicked.
+- Inside the greet() function, the expression {{ message }} displays the message 'Hello, Hariharan!' after clicking the button.
+ 
+-->

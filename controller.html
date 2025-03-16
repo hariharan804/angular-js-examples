@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <title>AngularJS Controller Example</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+</head>
+<style>
+    html,
+    body {
+      height: 100vh;
+      overflow: hidden;
+      padding: 10px;
+      margin: 0;
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    }
+    button {
+      padding: 8px 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      outline: none;
+      border: none;
+      background-color: rgb(142, 13, 255);
+      background: linear-gradient(60deg,  rgb(118, 0, 220),  rgba(163, 58, 255, 0.545));
+
+      color: #fff;
+      font-weight: 500;
+    }
+    .greet {
+        padding: 8px 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        background: linear-gradient(60deg, rgb(0, 200, 60), rgb(255, 255, 255));
+        color: #fff;
+        font-weight: 500;
+      }
+  </style>
+<body>
+
+<div ng-controller="MyController">
+  <h1>{{ greeting }}</h1>
+  <button ng-click="changeGreeting()" ng-class="{ 'greet': greeting === 'Hello, AngularJS!' }">Change Greeting</button>
+</div>
+
+<script>
+  // Define the AngularJS application module
+  var app = angular.module('myApp', []);
+
+  // Define the controller and inject $scope dependency
+  app.controller('MyController', function($scope) {
+    // Initialize a default greeting
+    $scope.greeting = 'Hello, AngularJS!';
+
+    // Function to change the greeting
+    $scope.changeGreeting = function() {
+      $scope.greeting = $scope.greeting !=='Hello, AngularJS!' ?  'Hello, AngularJS!' : 'Welcome to AngularJS!' ;
+    };
+  });
+</script>
+
+</body>
+</html>
+
+<!-- Explanation -->
+
+<!-- 
+
+- We define an AngularJS application module named myApp.
+- Within the controller, we initialize a variable greeting on the $scope object with an initial value of 'Hello, AngularJS!'.
+- We define a controller named MyController and inject the $scope service into it.
+- We also define a function changeGreeting() on the $scope object that changes the value of greeting when invoked.
+- In the HTML, we use the ng-controller directive to attach the controller to a specific DOM element (<div> in this case).
+- Inside the DOM element, we use AngularJS interpolation ({{}}) to display the value of greeting.
+- We use the ng-click directive to bind the changeGreeting() function to a button, allowing users to change the greeting when clicked.
+
+ -->

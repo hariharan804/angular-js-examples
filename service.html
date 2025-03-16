@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <title>AngularJS Service Example (For Students)</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    html, body {
+      height: 100vh;
+      padding: 20px;
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+    button {
+      padding: 8px 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: rgb(142, 13, 255);
+      color: #fff;
+      font-weight: 500;
+      margin: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: rgb(112, 10, 200);
+    }
+    .container {
+      max-width: 600px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" ng-controller="MyController">
+  <h2>🔹 AngularJS Service Example 🔹</h2>
+
+  <h3>1️⃣ Current Page URL:</h3>
+  <p>📍 Location: <strong>{{ location }}</strong></p>
+
+  <h3>2️⃣ Fetch Data from API:</h3>
+  <button ng-click="fetchHttpsData()">Get API Data</button>
+  <p>📡 HTTPS Data: <pre>{{ httpsData | json }}</pre></p>
+
+  <h3>3️⃣ Delayed Message Example:</h3>
+  <button ng-click="fetchDelayedMessage()">Show Delayed Message</button>
+  <p>⏳ Delayed Message: <strong>{{ delayedMessage }}</strong></p>
+</div>
+
+<script>
+  // Step 1: Define AngularJS Application
+  var app = angular.module('myApp', []);
+
+  // Step 2: Create a Custom Service
+  app.service('myService', function($http, $timeout) {
+    /**
+     * Function: getLocation()
+     * Purpose: Returns the current page URL
+     */
+    this.getLocation = function() {
+      return window.location.href;
+    };
+
+    /**
+     * Function: getHttpsData()
+     * Purpose: Fetches data from an API using $http
+     */
+    this.getHttpsData = function() {
+      return $http.get('https://jsonplaceholder.typicode.com/users')
+                 .then(function(response) {
+                    console.log("📡 API Response:", response);
+                    return response.data;
+                 });
+    };
+
+    /**
+     * Function: delayedMessage()
+     * Purpose: Returns a message after a 2-second delay using $timeout
+     */
+    this.delayedMessage = function() {
+      return $timeout(function() {
+        return "🎉 This message appeared after a 2-second delay!";
+      }, 2000);
+    };
+  });
+
+  // Step 3: Create a Controller that Uses the Service
+  app.controller('MyController', function($scope, myService) {
+    // Automatically set the location when the controller loads
+    $scope.location = myService.getLocation();
+
+    // Function to manually fetch API data
+    $scope.fetchHttpsData = function() {
+      
+      myService.getHttpsData().then(function(data) {
+        $scope.httpsData = data;
+      });
+    };
+
+    // Function to manually fetch delayed message
+    $scope.fetchDelayedMessage = function() {
+      myService.delayedMessage().then(function(message) {
+        $scope.delayedMessage = message;
+      });
+    };
+  });
+</script>
+
+</body>
+</html>
+
+
+<!-- Explanation -->
+
+<!-- 
+Location, making HTTPS requests, and using setTimeout:
+
+- The myService service provides methods to get the current location, make an HTTPS request to retrieve data, and generate a delayed message using $timeout.
+- In the MyController controller, we inject myService and use its methods to fetch the location, HTTPS data, and delayed message. The retrieved data is bound to the scope variables and displayed in the HTML.
+
+ -->

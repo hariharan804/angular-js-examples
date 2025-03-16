@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+  <head>
+    <meta charset="UTF-8" />
+    <title>AngularJS Events Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+      html,
+      body {
+        height: 100vh;
+        overflow: hidden;
+        padding: 10px;
+        margin: 0;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      }
+      button {
+        padding: 8px 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        outline: none;
+        border: none;
+        background-color: rgb(142, 13, 255);
+        background: linear-gradient(
+          60deg,
+          rgb(118, 0, 220),
+          rgba(163, 58, 255, 0.545)
+        );
+
+        color: #fff;
+        font-weight: 500;
+      }
+      input {
+        display: block;
+        width: 90%;
+        padding: 12px 8px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        border-color: #787878c7;
+        font-weight: 600;
+        font-style: 18px;
+        margin-top: 10px;
+      }
+      .greet {
+        padding: 8px 12px;
+        font-size: 16px;
+        border-radius: 8px;
+        width: 80%;
+        background: linear-gradient(60deg, rgb(0, 200, 60), rgb(255, 255, 255));
+        color: #fff;
+        font-weight: 500;
+      }
+    </style>
+  </head>
+  <body>
+    <div ng-controller="MyController">
+      <h2>Events Example:</h2>
+      <button ng-click="handleClick()">Click Me!</button>
+      <input
+        type="text"
+        ng-model="textInput"
+        ng-change="handleChange()"
+        placeholder="Type something..."
+      />
+      <p ng-mouseover="handleMouseOver()">Mouse over me!</p>
+      <p ng-mouseleave="handleMouseLeave()">Mouse left me!</p>
+      <p class="greet" ng-show="showMessage">Message: {{ message }}</p>
+    </div>
+
+    <script>
+      var app = angular.module("myApp", []);
+
+      app.controller("MyController", function ($scope) {
+        $scope.showMessage = false;
+
+        $scope.handleClick = function () {
+          $scope.showMessage = true;
+          $scope.message = "Button clicked!";
+        };
+
+        $scope.handleChange = function () {
+          $scope.showMessage = true;
+          $scope.message = "Text changed to: " + $scope.textInput;
+        };
+
+        $scope.handleMouseOver = function () {
+          $scope.showMessage = true;
+          $scope.message = "Mouse over event triggered!";
+        };
+
+        $scope.handleMouseLeave = function () {
+          $scope.showMessage = true;
+          $scope.message = "Mouse leave event triggered!";
+        };
+      });
+    </script>
+  </body>
+</html>
+
+<!-- Explanation -->
+
+<!-- 
+
+- The ng-click directive is used to trigger the handleClick() function when the button is clicked.
+- The ng-change directive is used to call the handleChange() function when the input field's value changes.
+- The ng-mouseover and ng-mouseleave directives are used to trigger the handleMouseOver() and handleMouseLeave() functions respectively when the mouse hovers over or leaves the specified elements.
+ 
+-->

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="directiveApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AngularJS Directives Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+      html,
+      body {
+        height: 100vh;
+        overflow: hidden;
+        padding: 10px;
+        margin: 0;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      }
+      </style>
+  </head>
+  <body>
+    <div ng-controller="DirectiveController">
+      <h2>Custom Directives Example</h2>
+      <my-directive></my-directive>
+      <test></test>
+      <test></test>
+      <test></test>
+      <test></test>
+    </div>
+
+    <script>
+      var app = angular.module("directiveApp", []);
+
+      // Define a custom directive named 'myDirective'
+      app.directive("myDirective", function () {
+        return {
+          restrict: "E", // Restrict to element usage
+          template: "<h4 style='color:red;'>This is a custom directive!</h4>",
+        };
+      });
+
+      app.directive("test", function () {
+        return {
+          restrict: "E", // Restrict to element usage
+          template: "<h4 style='color:blue;'>test directive!</h4>",
+        };
+      });
+      // Controller for the directive example
+      app.controller("DirectiveController", function ($scope) {
+        console.log("🚀 ~ ($scope:", $scope)
+        // Controller logic can be added here if needed
+      });
+    </script>
+  </body>
+</html>
+
+<!-- Explanation -->
+
+<!-- 
+
+1.We define an AngularJS module named directiveApp.
+2.We create a custom directive named myDirective using the app.directive() method.
+  - The directive restricts usage to elements (restrict: 'E').
+  - The template defines the HTML content of the directive.
+3.In the HTML, we use the my-directive element to invoke our custom directive.
+4.We also define a controller named DirectiveController, although it's not doing anything in this simple example.
+ 
+-->
+
+<!-- 
+Directive restrict:
+--------- --------
+'E': This restricts the directive to be used only as an element. It means that the directive can only be invoked by declaring an HTML element with the directive's name as the tag name.
+
+'A': This restricts the directive to be used only as an attribute. It means that the directive can only be applied to an existing HTML element as an attribute.
+
+'C': This restricts the directive to be used only as a class. It means that the directive can only be applied to an existing HTML element as a class.
+
+'M': This restricts the directive to be used as a comment. It means that the directive can only be applied to an existing HTML element as a comment.
+
+ -->

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+  <meta charset="UTF-8">
+  <title>AngularJS Filters Example</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <style>
+    html,
+    body {
+      height: 100vh;
+      padding: 10px;
+      margin: 0;
+      font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+    }
+    h2 {
+      margin-top: 40px;
+      font-size: 20px;
+
+    }
+    button {
+      padding: 8px 12px;
+      font-size: 16px;
+      border-radius: 8px;
+      outline: none;
+      border: none;
+      background-color: rgb(142, 13, 255);
+      color: #fff;
+      font-weight: 500;
+    }
+    .content{
+        padding: 30px 0;
+    }
+    input {
+        display: block;
+        width: 90%;
+        padding: 12px 8px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        border-color: #787878c7;
+        font-weight: 600;
+        font-size: 18px;
+      }
+  </style>
+</head>
+<body>
+
+<div class="content" ng-controller="MyController">
+    <h1>Filters</h1>
+  <h2>Currency Format Example:</h2>
+  <p>{{ price | currency }}</p>
+
+  <h2>Date Format Example:</h2>
+  <p>{{ today | date: 'dd-MM-yyyy' }}</p>
+
+  <h2>Filter Array of object Example:</h2>
+  <input type="text" ng-model="searchKeyword" placeholder="Search...">
+  <ul>
+    <li ng-repeat="item in items | filter: searchKeyword">{{ item }}</li>
+  </ul>
+
+  <h2>JSON Format Example:</h2>
+  <p>{{ items | json }}</p>
+
+  <h2>limitTo Example:</h2>
+  <p>{{ text | limitTo: 10 }}</p>
+
+  <h2>Lowercase Example:</h2>
+  <p>{{ text | lowercase }}</p>
+
+  <h2>Number Format Example:</h2>
+  <p>{{ number | number: 2 }}</p>
+
+  <h2>orderBy Example:</h2>
+  <ul>
+    <li ng-repeat="item in items | orderBy: 'property'">{{ item }}</li>
+  </ul>
+
+  <h2>Uppercase Example:</h2>
+  <p>{{ text | uppercase }}</p>
+</div>
+
+<script>
+  var app = angular.module('myApp', []);
+
+  app.controller('MyController', function($scope) {
+    // Currency format
+    $scope.price = 1000.50;
+
+    // Date format
+    $scope.today = new Date();
+
+    // Filter
+    $scope.items = ['Apple', 'Banana', 'Orange', 'Grapes'];
+
+    // JSON format
+    $scope.object = { name: 'John', age: 30 };
+
+    // limitTo
+    $scope.text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.';
+
+    // Lowercase
+    $scope.text = 'HELLO ANGULAR';
+
+    // Number format
+    $scope.number = 12345.6789;
+
+    // orderBy
+    $scope.items = [
+      { name: 'Apple', property: 'A' },
+      { name: 'Banana', property: 'B' },
+      { name: 'Orange', property: 'O' },
+      { name: 'Grapes', property: 'G' }
+    ];
+
+    // Uppercase
+    $scope.text = 'hello angular';
+  });
+</script>
+
+</body>
+</html>

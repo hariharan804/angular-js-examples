@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Input Validation</title>
+    <style>
+      html,
+      body {
+        height: 100vh;
+        overflow: hidden;
+        padding: 0;
+        margin: 0;
+        font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+      }
+      .content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+      }
+      form {
+        width: 300px;
+        height: 300px;
+        box-shadow: 0px 6px 8px #47474723;
+        padding: 20px;
+        border-radius: 8px;
+      }
+      .error-message {
+        color: red;
+        font-size: 14px;
+        font-weight: 400;
+      }
+      label {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 14px;
+      }
+      input {
+        display: block;
+        width: 90%;
+        padding: 12px 8px;
+        margin-bottom: 8px;
+        border-radius: 8px;
+        border-color: #5a5a5a23;
+      }
+      button {
+        width: 100%;
+        padding: 8px 10px;
+        background-color: blueviolet;
+        color: #fff;
+        font-weight: 600;
+        border:none;
+        border-radius: 8px;
+        outline: none;
+      }
+      button:disabled {
+        opacity: 0.38;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="content"
+      ng-app="validationApp"
+      ng-controller="validationController"
+    >
+      <form name="myForm" novalidate>
+        <h3>Login</h3>
+        <label for="username">Username:</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          ng-model="user.username"
+          required
+        />
+        <span class="error-message" ng-show="myForm.username.$error.required"
+          >Username is required.</span
+        >
+        <br /><br />
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          ng-model="user.email"
+          required
+        />
+        <span class="error-message" ng-show="myForm.email.$error.required"
+          >Email is required.</span
+        >
+        <span class="error-message" ng-show="myForm.email.$error.email"
+          >Invalid email address.</span
+        >
+        <br /><br />
+        <button
+          ng-click="submitForm()"
+          type="submit"
+          ng-disabled="myForm.$invalid"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script>
+      var app = angular.module("validationApp", []);
+
+      app.controller("validationController", function ($scope) {
+        $scope.user = {};
+        $scope.submitForm = function () {
+          //   submission logic
+          const name = $scope.user.username;
+          const email = $scope.user.email;
+
+          console.log(
+            "Form submitted successfully!\nName: " + name + "\nEmail: " + email
+          );
+
+          alert("Form submitted successfully!");
+        };
+      });
+    </script>
+  </body>
+</html>
+
+
+<!-- Directives, Expressions, Controllers, Filters, Service, Events, Forms, Validations -->
