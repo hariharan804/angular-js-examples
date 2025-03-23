@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="inputValidationApp">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Input Validation Example</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <style>
+      .error {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div ng-controller="ValidationController">
+      <h1>Input Validation Example</h1>
+      <form name="myForm" ng-submit="submitForm()">
+        <div>
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            ng-model="formData.name"
+            ng-
+            required="true"
+          />
+          <span
+            class="error"
+            ng-show="myForm.name.$dirty && myForm.name.$error.required"
+            >Name is required.</span>
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            ng-model="formData.email"
+            ng-required="true"
+            ng-pattern="/^.+@.+\..+$/"
+          />
+          <span
+            class="error"
+            ng-show="myForm.email.$dirty && (myForm.email.$error.required || myForm.email.$error.pattern)"
+            >Email is required and must be a valid email address.</span
+          >
+        </div>
+        <button type="submit" ng-disabled="myForm.$invalid">Submit</button>
+      </form>
+      <div ng-if="formSubmitted">Form submitted successfully!</div>
+    </div>
+    <script>
+      angular
+        .module("inputValidationApp", [])
+        .controller("ValidationController", function ($scope) {
+          $scope.formData = {};
+          $scope.formSubmitted = false;
+          $scope.submitForm = function () {
+            if ($scope.myForm.$valid) {
+              console.log("Form submitted with data: ", $scope.formData);
+              $scope.formSubmitted = true;
+            }
+          };
+        });
+    </script>
+  </body>
+</html>

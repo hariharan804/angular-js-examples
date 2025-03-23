@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AngularJS Dynamic Prop Passing</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.8.2/angular.min.js"></script>
+</head>
+<body>
+  <div ng-controller="MainController as main">
+    <h2>Parent Component</h2>
+
+    <!-- Input field to change message dynamically -->
+    <p>Change Message: <input type="text" ng-model="main.message"></p>
+
+    <!-- Child Component -->
+    <child-component message="main.message" user="main.user"></child-component>
+  </div>
+
+  <script>
+    // Define AngularJS app
+    angular.module('app', [])
+      .controller('MainController', function () {
+        var main = this;
+        main.message = "Hello from Parent!";
+        main.user = { name: "Angular", age: 25 };
+      })
+      .component('childComponent', {
+        bindings: {
+          message: '<',  // One-way binding (updates when parent changes)
+          user: '='      // Two-way binding (child can modify parent data)
+        },
+        template: `
+          <div>
+            <h3>Child Component</h3>
+            <p>Message: {{$ctrl.message}}</p>
+            <p>User: {{$ctrl.user.name}} ({{$ctrl.user.age}} years old)</p>
+            <button ng-click="$ctrl.user.age = $ctrl.user.age + 1">Increase Age</button>
+          </div>
+        `,
+        controller: function () {}
+      });
+  </script>
+</body>
+</html>
